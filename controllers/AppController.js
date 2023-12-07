@@ -1,5 +1,7 @@
-import redisClient from '../utils/redis.js';
-import dbClient from  '..utils/db.js';
+// eslint-disable-next-line import/extensions
+import redisClient from '../utils/redis';
+// eslint-disable-next-line import/no-unresolved
+import dbClient from '../utils/db';
 
 export const getStatus = (req, res) => res.status(200).json({
   redis: redisClient.isAlive(), db: dbClient.isAlive(),
