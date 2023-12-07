@@ -1,7 +1,6 @@
-#!/usr/bin/node
-
 /* eslint-disable no-console */
 import mongodb from 'mongodb';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import dotenv from 'dotenv';
 
 dotenv.config();
