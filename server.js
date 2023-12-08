@@ -1,17 +1,12 @@
-#!/usr/bin/node
-
 import express from 'express';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import dotenv from 'dotenv';
-import router from './routes/index';
+import startServer from './libs/boot';
+import injectRoutes from './routes';
+import injectMiddlewares from './libs/middlewares';
 
-dotenv.config();
-const app = express();
-const port = process.env.PORT || 5000;
+const server = express();
 
-// app.use(morgan('dev'));
-app.use(express.json());
+injectMiddlewares(server);
+injectRoutes(server);
+startServer(server);
 
-app.use(router);
-
-app.listen(port, () => console.log(`Server running on port ${port}`));
+export default server;

@@ -1,13 +1,19 @@
-// eslint-disable-next-line import/extensions
+/* eslint-disable import/no-named-as-default */
 import redisClient from '../utils/redis';
-// eslint-disable-next-line import/no-unresolved
 import dbClient from '../utils/db';
 
-export const getStatus = (req, res) => res.status(200).json({
-  redis: redisClient.isAlive(), db: dbClient.isAlive(),
-});
+export default class AppController {
+  static getStatus(req, res) {
+    res.status(200).json({
+      redis: redisClient.isAlive(),
+      db: dbClient.isAlive(),
+    });
+  }
 
-export const getStats = async (req, res) => res.status(200).json({
-  users: await dbClient.nbUsers(),
-  files: await dbClient.nbFiles(),
-});
+  static getStats(req, res) {
+    Promise.all([dbClient.nbUsers(), dbClient.nbFiles()])
+      .then(([usersCount, filesCount]) => {
+        res.status(200).json({ users: usersCount, files: filesCount });
+      });
+  }
+}
